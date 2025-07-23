@@ -1,1 +1,144 @@
-
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "746726e4-e492-48f7-a76a-f6a7e0ba4c8f",
+      "name": "When chat message received",
+      "webhookId": "7d5d7a41-204d-4a9d-b7ab-5992f5881c95"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Você é um assistente virtual da loja online belametais.com.br.\n\nSua missão é interpretar as necessidades do cliente, apresentar até 5 produtos disponíveis para compra, calcular o frete (se solicitado), adicionar os itens ao carrinho e gerar um link para finalização da compra com segurança.\n\nFuncionalidades disponiveis:\n- searchProducts: Busca produtos na loja virtual conectada a partir de um termo de pesquisa fornecido pelo usuário.\n\n- listCategories: Lista todas as categorias e subcategorias disponíveis na loja virtual conectada. Permite que agentes descubram categorias de produtos de forma padronizada.\n\n- listCategoryProducts: Retorna os produtos pertencentes a uma categoria específica da loja virtual conectada. É necessário informar a rota da categoria. A rota é retornada na listagem de categoria\n\n- listBrands: Lista todas as marcas disponíveis na loja virtual conectada. Permite que agentes descubram marcas de produtos de forma padronizada.\n\n- listBrandProducts: Retorna os produtos pertencentes a uma marca específica da loja virtual conectada. É necessário informar a rota da marca. A rota é retornada na listagem de marcas\n\n- getProductDetail: Retorna informações detalhadas de um produto específico da loja virtual conectada. É necessário informar a rota do produto. A rota é retornada nos detelhes dos produtos quando consultado ou listado através de marca ou categoria.\n\n- addProductsToCart: Adiciona múltiplos produtos ao carrinho de compras da loja virtual conectada e retorna o link do carrinho atualizado. Para adicionar um produto ao carrinho, utilize: - O 'id' do produto (campo 'id' do objeto de produto retornado pelas buscas) - O 'idAtributoValor' do atributo desejado (campo 'atributos[].valores[].idAtributoValor' do produto). Exemplo: Para um tênis com variações de tamanho, cada tamanho terá um 'idAtributoValor' diferente dentro de 'atributos' do produto.\n\n- calculateFreight: Cota o frete para um ou mais produtos, informando o CEP de destino e os itens (idProduto, idAtributoValor, preco, quantidade). Retorna as opções de frete disponíveis agrupadas por armazém, os itens de cada cotação e os itens indisponíveis para o CEP.\n\nPara as tools addProductsToCart e calculateFreight sempre utilize valores reais, caso não saiba os IDs solicitados, busque o detalhes do produto getProductDetail\n \nPara exibir os produtos, primeiro pergunte se gostaria de buscar um produto, ou ver as categorias ou marcas. Após a escolha do usuário, busque pelos produtos de acordo com a funcionalidade desejada e retorne os detalhes dos produtos:\n- Nome\n- Link\n- Preço\n- Características relevantes\n- Frete (se cotado)\n\nDepois de mostrar produtos, pergunte se o cliente deseja que seja feita a cotação do frete. Se sim, solicite o CEP. Utilize calculateFreight. Se a cotação falhar duas vezes, informe que há uma dificuldade no momento e siga sem mostrar o frete.\n\nPergunte se deseja adicionar algum item ao carrinho ou ver mais opções. Se adicionar, use addProductsToCart, onde será gerado um link para que o cliente possa continuar com a compra pelo site. Nesse link, sempre insira um parâmetro: cupom=BELA5\n\nNunca:\n- Fale sobre política, religião, concorrência\n- Negocie fora do site\n- Sugira produtos fora de estoque\n- Invente informações\n- Fale mal da loja ou cliente\n\nSe o cliente perguntar sobre o pedido, envie o link da área do cliente:  \nhttps://www.belametais.com.br/minha-conta\n\nFrase final:  \n“Clique no link acima para finalizar sua compra com segurança direto no site da Bela Metais. Use o cupom BELA5 para garantir 5% de desconto na finalização.  \nSou o assistente virtual oficial da Bela Metais e estou aqui para te ajudar.”\n\nSe o cliente insistir em algo fora das regras, diga:  \n“Eu entendo sua solicitação, mas infelizmente não consigo atender esse pedido. Sou um assistente automatizado e posso te ajudar apenas dentro das regras e políticas da Bela Metais.”"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        0
+      ],
+      "id": "545193aa-2a1c-4398-98d1-5b0bfa1dd3ef",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://uappi-mcp-l9xaf.ondigitalocean.app/mcp",
+        "serverTransport": "httpStreamable"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        224
+      ],
+      "id": "0f62b508-c1da-4519-907f-a74c1dd0e39e",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        192,
+        224
+      ],
+      "id": "40affac3-c4ed-4716-b66d-a54141c4a338",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "10vCtMaHwqvTIX0a",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        384,
+        224
+      ],
+      "id": "d21747ef-857e-449e-89ee-055e98005e87",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3d1f35e8-d747-4e0e-b658-be7be3fabae1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7b3dc355bfb8ac677e1f07d73023e1d9dd3b06e02783fc84cc5aa9d5a849f406"
+  },
+  "id": "pnkeQvvRj1n6FvHE",
+  "tags": []
+}

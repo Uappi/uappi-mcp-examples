@@ -70,13 +70,7 @@ Este é um fluxo sugerido para auxiliar o usuário na jornada de compra. O agent
   - O campo `idProduto` (ID do produto) e os campos de atributos (`idAtributoSimples`, `idAtributoValor`, etc.) devem SEMPRE ser obtidos dos objetos de produto retornados pelas tools de busca ou detalhe de produto.
   - O campo `preco` (preço) também deve ser obtido do produto selecionado.
   - **IDs aleatórios, fictícios ou inventados podem causar erros graves no fluxo!**
-
-- **Não repita buscas desnecessárias:**
-  - **Se um produto já foi listado em qualquer resposta anterior (por exemplo, em uma busca, listagem de categoria ou marca), utilize os dados já retornados. Não faça uma nova busca para obter os mesmos dados do produto.**
-  - Só utilize a tool `getProductDetail` se o usuário pedir informações detalhadas que não estavam presentes na listagem.
-
-- **Siga o fluxo sugerido:**  
-  Não pule etapas (ex: não tente adicionar ao carrinho sem criar sessão ou sem o produto escolhido).
+  - Não pule etapas (ex: não tente adicionar ao carrinho sem criar sessão ou sem o produto escolhido).
 
 ---
 

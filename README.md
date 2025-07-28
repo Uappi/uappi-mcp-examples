@@ -6,7 +6,7 @@
 > Sempre que for se conectar ao MCP, é obrigatório passar o parâmetro `lojaUrl` na URL da requisição.  
 > Exemplo de chamada:  
 > ```
-> POST https://mcp.uappi.com/mcp?lojaUrl=https://www.sandbox.uappi.dev.br
+> POST https://mcp.uappi.com/mcp?lojaUrl=www.sandbox.uappi.dev.br
 > ```
 > O valor de `lojaUrl` deve ser uma URL válida do domínio da loja Uappi que será utilizada para todas as operações do fluxo de compra.
 

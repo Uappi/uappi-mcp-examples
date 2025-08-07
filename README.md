@@ -202,6 +202,7 @@ graph TD
 - Se ocorrer erro, explique o motivo e oriente o usuário. 
 - **Nunca invente IDs, rotas ou atributos!**
 
+---
 
 ## 6. Configuração do MCP no n8n
 

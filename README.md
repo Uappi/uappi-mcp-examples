@@ -201,3 +201,29 @@ graph TD
 - Se não houver resultados, informe claramente ao usuário.
 - Se ocorrer erro, explique o motivo e oriente o usuário. 
 - **Nunca invente IDs, rotas ou atributos!**
+
+
+## 6. Configuração do MCP no n8n
+
+Para integrar o MCP ao **n8n**, é necessário seguir as instruções abaixo e garantir que o ambiente está utilizando as versões compatíveis:
+
+### ✅ Requisitos mínimos
+
+- **n8n versão `>= 1.104.0`**
+  - Versões anteriores **não suportam** o transporte necessário para comunicação com o MCP.
+- **Transporte HTTP:**  
+  - O n8n deve estar configurado com o **Server Transport `HTTP Streamable`**, que permite suporte completo à comunicação com ferramentas como o MCP Client.
+- **MCP Client Tool:**
+  - Utilize o **nó do MCP com versão `>= 1.1`** para garantir compatibilidade com as últimas funcionalidades e correções.
+  - Este nó é normalmente identificado como `MCP Client Tool` ou similar, dependendo da instalação e do ambiente.
+
+### ⚙️ Configuração no fluxo do n8n
+
+1. **Adicione o nó do tipo `MCP Client Tool`** ao seu fluxo.
+2. **Configure a URL de destino**, incluindo o parâmetro `lojaUrl` obrigatoriamente:
+   ```
+   https://mcp.uappi.com/mcp?lojaUrl=www.sandbox.uappi.dev.br
+   ```
+3. **Selecione a ação desejada** (por exemplo: `listCategories`, `searchProducts`, etc).
+4. **Preencha os campos com os parâmetros esperados** de acordo com o exemplo de uso das tools já descritos anteriormente neste documento.
+5. **Utilize o output do nó** para seguir o fluxo de compra conforme o roteiro do agente de IA.

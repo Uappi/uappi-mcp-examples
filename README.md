@@ -194,17 +194,7 @@ graph TD
 
 ---
 
-## 5. Dicas Finais
-
-- Sempre explique ao usuário o próximo passo.
-- Nunca faça requisições desnecessárias.
-- Se não houver resultados, informe claramente ao usuário.
-- Se ocorrer erro, explique o motivo e oriente o usuário. 
-- **Nunca invente IDs, rotas ou atributos!**
-
----
-
-## 6. Configuração do MCP no n8n
+## 5. Configuração do MCP no n8n
 
 Para integrar o MCP ao **n8n**, é necessário seguir as instruções abaixo e garantir que o ambiente está utilizando as versões compatíveis:
 
@@ -228,3 +218,13 @@ Para integrar o MCP ao **n8n**, é necessário seguir as instruções abaixo e g
 3. **Selecione a ação desejada** (por exemplo: `listCategories`, `searchProducts`, etc).
 4. **Preencha os campos com os parâmetros esperados** de acordo com o exemplo de uso das tools já descritos anteriormente neste documento.
 5. **Utilize o output do nó** para seguir o fluxo de compra conforme o roteiro do agente de IA.
+
+---
+
+## 6. Dicas Finais
+
+- Sempre explique ao usuário o próximo passo.
+- Nunca faça requisições desnecessárias.
+- Se não houver resultados, informe claramente ao usuário.
+- Se ocorrer erro, explique o motivo e oriente o usuário. 
+- **Nunca invente IDs, rotas ou atributos!**
